@@ -1,4 +1,19 @@
 ```
+	<repositories>
+		<repository>
+		    <id>jitpack.io</id>
+		    <url>https://jitpack.io</url>
+		</repository>
+	</repositories>
+	
+	<dependency>
+	    <groupId>com.github.BingulHan</groupId>
+	    <artifactId>HanStorage</artifactId>
+	    <version>0.1</version>
+	</dependency>
+```
+
+```
 
         //Automatic file is created
         HanStorage storage = new HanStorage("C:\\Users\\BingulHan\\Desktop\\HanStorage\\src\\main\\resources", "example");
