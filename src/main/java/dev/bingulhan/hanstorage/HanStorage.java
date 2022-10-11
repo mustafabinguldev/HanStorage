@@ -10,7 +10,7 @@ import java.util.*;
  * @author BingulHan
  *
  * The object where the data is kept
- * 
+ *
  */
 public class HanStorage {
 
@@ -57,6 +57,16 @@ public class HanStorage {
 
         datas.add(data);
     }
+
+    @Override
+    protected void finalize() throws Throwable {
+
+        super.finalize();
+        save();
+        System.out.println("Auto saved");
+
+    }
+
     public HanStorage(String path, String fileName) {
         file = new File(path, fileName+"."+ SoftwareInfo.EXTENSION);
 
