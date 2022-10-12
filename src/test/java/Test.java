@@ -21,6 +21,8 @@ public class Test {
             System.out.println("Key: "+d.getKey());
             System.out.println("Value: "+d.getValue());
             System.out.println("Line: "+d.getLine());
+
+            d.setValue("test");
         }
 
         //How to save file
@@ -31,7 +33,7 @@ public class Test {
 
 
         //How to delete data
-        storage.remove("github");
+    //    storage.remove("github");
         storage.save();
 
         /*Auto saves after deletion

@@ -96,7 +96,32 @@ public class HanStorage {
         });
     }
 
+    public final ArrayList<HanData> getDataList() {
+        return new ArrayList<HanData>(this.datas);
+    }
+
+    public final boolean updateValue(String key, String value) {
+        if (datas.stream().anyMatch(d -> d.getKey().equals(key))) {
+            datas.stream().filter(d -> d.getKey().equals(key)).findAny().get().setValue(value);
+            save();
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    public final int getSize() {
+        return datas.size();
+    }
     public final void save() {
+        file.delete();
+
+        try {
+            file.createNewFile();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
         List<HanData> data = new ArrayList<>(datas);
         Collections.sort(data);
 
