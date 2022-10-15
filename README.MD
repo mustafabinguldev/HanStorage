@@ -11,6 +11,12 @@
 	    <artifactId>HanStorage</artifactId>
 	    <version>0.3</version>
 	</dependency>
+	
+	<dependency>
+         <groupId>org.json</groupId>
+         <artifactId>json</artifactId>
+         <version>20220320</version>
+    </dependency>
 ```
 
 ```
