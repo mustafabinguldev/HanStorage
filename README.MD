@@ -9,7 +9,7 @@
 	<dependency>
 	    <groupId>com.github.BingulHan</groupId>
 	    <artifactId>HanStorage</artifactId>
-	    <version>0.1</version>
+	    <version>0.3</version>
 	</dependency>
 ```
 
@@ -19,10 +19,7 @@
         HanStorage storage = new HanStorage("C:\\Users\\BingulHan\\Desktop\\HanStorage\\src\\main\\resources", "example");
 
         //How to add data
-        HanData data = new HanData(1);
-        data.setKey("github");
-        data.setValue("bingulhan");
-        storage.addData(data);
+        storage.addData(new HanData().setKey("Github").setValue("bingulhan"));
 
         //How to call data
         if (storage.getData("github").isPresent()) {
@@ -45,4 +42,12 @@
 
         /*Auto saves after deletion
         storage.removeSave("github");*/
+        
+        //How can it be converted to other data types
+        IConverter converter = new JSONConverter();
+        JSONObject jsonObject = (JSONObject) converter.convert(students);
+        System.out.println(""+jsonObject.toString());
+        
+       
+        
 ```

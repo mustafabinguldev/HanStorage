@@ -56,6 +56,7 @@ public class HanStorage {
         }
 
         datas.add(data);
+        save();
     }
 
     @Override

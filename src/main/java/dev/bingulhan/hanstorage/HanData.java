@@ -10,13 +10,16 @@ public class HanData implements Comparable<HanData>{
 
     private String key;
 
-    private int line;
+    private int line = 0;
 
     private String value;
 
     public HanData(int line) {
         this.line = line;
     }
+    public HanData() {
+    }
+
 
     public int getLine() {
         return line;
@@ -25,16 +28,18 @@ public class HanData implements Comparable<HanData>{
     public String getKey() {
         return key;
     }
-    public void setKey(String key) {
+    public HanData setKey(String key) {
         this.key = key;
+        return this;
     }
 
     public String getValue() {
         return value;
     }
 
-    public void setValue(String value) {
+    public HanData setValue(String value) {
         this.value = value;
+        return this;
     }
 
     @Override
