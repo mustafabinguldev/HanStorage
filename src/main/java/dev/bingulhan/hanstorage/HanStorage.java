@@ -46,17 +46,19 @@ public class HanStorage {
 
     }
 
-    public final void addData(HanData data) {
+    public final HanStorage addData(HanData data) {
 
         for (HanData d : datas) {
             if (d.getKey().equals(data.getKey())) {
                 System.err.println("This data already exists");
-                return;
+                return this;
             }
         }
 
         datas.add(data);
         save();
+
+        return this;
     }
 
     @Override
@@ -83,6 +85,9 @@ public class HanStorage {
         System.err.println("Saved data size of "+fileName+".hst is "+datas.size());
 
     }
+
+
+
 
     public final Optional<HanData> getData(String key) {
         return datas.stream().filter(d -> d.getKey().equals(key)).findAny();

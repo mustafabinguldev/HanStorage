@@ -9,6 +9,9 @@ public interface IConverter {
     public String getPackage();
     public String information();
 
+    public void write(String path, String name, HanStorage storage);
+
+
 
 
 

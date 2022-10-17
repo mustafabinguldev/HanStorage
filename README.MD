@@ -54,6 +54,12 @@
         JSONObject jsonObject = (JSONObject) converter.convert(students);
         System.out.println(""+jsonObject.toString());
         
+        //You can save all data in a file with JSON format.
+        converter.write("C:\\Users\\BingulHan\\Desktop\\HanStorage\\src\\main\\resources\\", "backups", storage);
+        
+        You can read the data in JSON format and convert it as a storage object. (Note: It works correctly if the data is kept as key and value.)
+        IReader reader = new JSONReader();
+        Optional<HanStorage> hanStorage = reader.read("C:\\Users\\BingulHan\\Desktop\\HanStorage\\src\\main\\resources\\backups.json");
        
         
 ```
