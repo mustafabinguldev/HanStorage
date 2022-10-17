@@ -1,10 +1,10 @@
 ```
-	<repositories>
-		<repository>
-		    <id>jitpack.io</id>
-		    <url>https://jitpack.io</url>
-		</repository>
-	</repositories>
+
+	<repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+	</repository>
+
 	
 	<dependency>
 	    <groupId>com.github.BingulHan</groupId>
@@ -12,11 +12,6 @@
 	    <version>0.3</version>
 	</dependency>
 	
-	<dependency>
-         <groupId>org.json</groupId>
-         <artifactId>json</artifactId>
-         <version>20220320</version>
-    </dependency>
 ```
 
 ```
