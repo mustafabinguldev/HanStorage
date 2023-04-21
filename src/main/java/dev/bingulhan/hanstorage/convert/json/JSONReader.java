@@ -3,12 +3,9 @@ package dev.bingulhan.hanstorage.convert.json;
 import dev.bingulhan.hanstorage.HanData;
 import dev.bingulhan.hanstorage.HanStorage;
 import dev.bingulhan.hanstorage.convert.IReader;
-import jdk.nashorn.internal.parser.JSONParser;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;

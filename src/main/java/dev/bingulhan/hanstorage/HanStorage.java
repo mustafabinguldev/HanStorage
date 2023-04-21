@@ -5,6 +5,7 @@ import dev.bingulhan.hanstorage.SoftwareInfo;
 
 import java.io.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author BingulHan
@@ -28,19 +29,32 @@ public class HanStorage {
         int line = 1;
         while(dosya.hasNextLine()) {
             String source = dosya.nextLine();
-            String key = source.split("=")[0];
-            String value = "";
-            for (int i = 1; i < source.split("=").length; i++) {
-                value = value + source.split("=")[i];
+            if (source.charAt(0) != '#') {
+                String key = source.split("=")[0];
+                String value = "";
+                for (int i = 1; i < source.split("=").length; i++) {
+                    value = value + source.split("=")[i];
+                }
+
+                HanData data = new HanData(line);
+                data.setType(HanData.DataType.DATA);
+                data.setKey(key);
+                data.setValue(value);
+
+                datas.add(data);
+
+            }else {
+                String value = source.substring(1);
+
+                HanData data = new HanData(line);
+                data.setKey("c"+line);
+                data.setValue(value);
+                data.setType(HanData.DataType.COMMENT);
+
+                datas.add(data);
             }
-
-            HanData data = new HanData(line);
-            data.setKey(key);
-            data.setValue(value);
-
-            datas.add(data);
-
             line++;
+
         }
 
 
@@ -68,6 +82,10 @@ public class HanStorage {
         save();
         System.out.println("Auto saved");
 
+    }
+
+    public final boolean isSet(String key) {
+        return datas.stream().anyMatch(dt -> dt.getKey().equals(key));
     }
 
     public HanStorage(String path, String fileName) {
@@ -106,6 +124,18 @@ public class HanStorage {
         return new ArrayList<HanData>(this.datas);
     }
 
+    public final ArrayList<HanData> getDataList(HanData.DataType type) {
+        return (ArrayList<HanData>) new ArrayList<HanData>(this.datas).stream().filter(data -> data.getType().equals(type)).collect(Collectors.toList());
+    }
+
+    public final Optional<String> getComment(int line) {
+        if (isSet("c"+line)) {
+            return Optional.of(getData("c"+line).get().getValue());
+        }
+
+        return Optional.empty();
+    }
+
     public final boolean updateValue(String key, String value) {
         if (datas.stream().anyMatch(d -> d.getKey().equals(key))) {
             datas.stream().filter(d -> d.getKey().equals(key)).findAny().get().setValue(value);
@@ -119,6 +149,11 @@ public class HanStorage {
     public final int getSize() {
         return datas.size();
     }
+
+    public final int getSize(HanData.DataType type) {
+        return getDataList().stream().filter(data -> data.getType().equals(type)).collect(Collectors.toList()).size();
+    }
+
     public final void save() {
         file.delete();
 
@@ -134,14 +169,27 @@ public class HanStorage {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(file));
             data.stream().forEach(d -> {
-                String line = d.getKey()+"="+d.getValue();
-                try {
-                    writer.write(line);
-                    writer.newLine();
-                    writer.flush();
 
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
+                if (d.getType().equals(HanData.DataType.DATA)) {
+                    String line = d.getKey()+"="+d.getValue();
+                    try {
+                        writer.write(line);
+                        writer.newLine();
+                        writer.flush();
+
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }else {
+                    String line = "#"+d.getValue();
+                    try {
+                        writer.write(line);
+                        writer.newLine();
+                        writer.flush();
+
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
             });
 

@@ -1,6 +1,7 @@
 package dev.bingulhan.hanstorage;
 
 
+import javax.xml.crypto.Data;
 import java.util.Objects;
 
 /**
@@ -14,7 +15,9 @@ public class HanData implements Comparable<HanData>{
 
     private String value;
 
-    public HanData(int line) {
+    private DataType type;
+    public HanData(int line)
+    {
         this.line = line;
     }
     public HanData() {
@@ -31,6 +34,14 @@ public class HanData implements Comparable<HanData>{
     public HanData setKey(String key) {
         this.key = key;
         return this;
+    }
+
+    public DataType getType() {
+        return this.type;
+    }
+
+    public void setType(DataType type) {
+        this.type = type;
     }
 
     public String getValue() {
@@ -56,5 +67,9 @@ public class HanData implements Comparable<HanData>{
         }else {
             return 0;
         }
+    }
+
+    public enum DataType {
+        DATA, COMMENT
     }
 }

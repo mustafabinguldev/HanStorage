@@ -1,0 +1,5 @@
+#Mysql host
+host=localhost
+#Mysql Port
+port=4009
+#Yapimci BingulHan
