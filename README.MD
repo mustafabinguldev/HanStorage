@@ -9,7 +9,7 @@
 	<dependency>
 	    <groupId>com.github.BingulHan</groupId>
 	    <artifactId>HanStorage</artifactId>
-	    <version>0.3</version>
+	    <version>0.5</version>
 	</dependency>
 	
 ```
