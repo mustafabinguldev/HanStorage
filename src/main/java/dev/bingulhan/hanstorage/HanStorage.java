@@ -17,6 +17,9 @@ public class HanStorage {
 
     private final File file;
 
+    private boolean isOutputEnable = true;
+
+
     private HashSet<HanData> datas = new HashSet<>();
 
     private void readLines() {
@@ -64,7 +67,10 @@ public class HanStorage {
 
         for (HanData d : datas) {
             if (d.getKey().equals(data.getKey())) {
-                System.err.println("This data already exists");
+                if (isOutputEnable) {
+                    System.err.println("This data already exists");
+                }
+
                 return this;
             }
         }
@@ -80,7 +86,10 @@ public class HanStorage {
 
         super.finalize();
         save();
-        System.out.println("Auto saved");
+
+        if (isOutputEnable) {
+            System.out.println("Auto saved");
+        }
 
     }
 
@@ -100,7 +109,27 @@ public class HanStorage {
         }
 
         readLines();
-        System.err.println("Saved data size of "+fileName+".hst is "+datas.size());
+        if (isOutputEnable) {
+            System.err.println("Saved data size of "+fileName+".hst is "+datas.size());
+        }
+    }
+
+    public HanStorage(String path, String fileName, boolean outputstate) {
+        file = new File(path, fileName+"."+ SoftwareInfo.EXTENSION);
+
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        readLines();
+        if (isOutputEnable) {
+            System.err.println("Saved data size of "+fileName+".hst is "+datas.size());
+        }
+        this.isOutputEnable = outputstate;
 
     }
 
@@ -196,7 +225,9 @@ public class HanStorage {
             writer.close();
 
         } catch (IOException ex) {
-            System.out.println("File could not be created");
+            if (isOutputEnable) {
+                System.out.println("File could not be created");
+            }
         }
 
     }
@@ -205,7 +236,9 @@ public class HanStorage {
         if (datas.stream().anyMatch(d -> d.getKey().equals(key))) {
             datas.remove(datas.stream().filter(d -> d.getKey().equals(key)).findAny().get());
         }else {
-            System.err.println("Data not found");
+            if (isOutputEnable) {
+                System.err.println("Data not found");
+            }
         }
     }
 
@@ -213,7 +246,9 @@ public class HanStorage {
         if (datas.stream().anyMatch(d -> d.getKey().equals(key))) {
             datas.remove(datas.stream().filter(d -> d.getKey().equals(key)).findAny().get());
         } else {
-            System.err.println("Data not found");
+            if (isOutputEnable) {
+                System.err.println("Data not found");
+            }
         }
 
         save();
